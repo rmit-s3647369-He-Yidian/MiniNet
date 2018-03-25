@@ -15,9 +15,9 @@ public class Driver {
 	/**
 	 * @param args
 	 */	
-	private int num = -1;  											   //the selected person's profile
+	private int num = -1;  										//the selected person's profile
 	private static ArrayList<Persons> ps = new ArrayList <Persons> (); //store persons object	
-	private final int listSize = 500;  								   //size of the net to store the persons	
+	private final int listSize = 500;  								//size of the net to store the persons	
 	
 	//ensure the person is in the net and save the number represent the person object
 	public boolean checkIfExist(String inputName) {
@@ -42,7 +42,7 @@ public class Driver {
 		}
 	}	
 	public void addPersonsProfile() {	
-		if(ps.size() == listSize) {									   	/* the list size is full */	
+		if(ps.size() == listSize) {							/* the list size is full */	
 			System.out.println("The MiniNet is full, you cannot add more profile.");
 			return; //back to menu
 		}		
@@ -51,22 +51,22 @@ public class Driver {
 		String line = (new Scanner(System.in)).nextLine();	
 		String[] record = line.split("\\s");
 		
-		if(checkIfExist(record[0]) == true) {							/* the person is already exist */		
+		if(checkIfExist(record[0]) == true) {						/* the person is already exist */		
 			System.out.println("The person's name is already in the MiniNet, please try another.");
 			return; //back to menu
 		}	
 		try {
-			if(Integer.parseInt(record[2]) > 16 ) {							/* the person become an adult */		
+			if(Integer.parseInt(record[2]) > 16 ) {					/* the person become an adult */		
 				ps.add(new Adults(record[0], record[1].charAt(0), Integer.parseInt(record[2])));
 				System.out.println("The person's profile has been recorded!");		
 			}			
-			else if(Integer.parseInt(record[2]) <= 16) {					/* the person become a dependent */		
+			else if(Integer.parseInt(record[2]) <= 16) {				/* the person become a dependent */		
 				int fatherProfile = -1, motherProfile = -1;
 				System.out.println("The person is a dependent, please enter his/her parents' names.");			
 				System.out.print("Father's name: ");
 				String addFather = (new Scanner(System.in)).nextLine();		
 				checkIfExist(addFather);
-				if(checkIfExist(addFather) == false) {						/* the father is not exist*/		
+				if(checkIfExist(addFather) == false) {				/* the father is not exist*/		
 					System.out.println("The father's name is not in the MiniNet, please add father's profile first!");
 					return; //back to menu
 				}
@@ -74,7 +74,7 @@ public class Driver {
 				System.out.print("Mother's name: ");	
 				String addMother = (new Scanner(System.in)).nextLine();	
 				checkIfExist(addMother);	
-				if(checkIfExist(addMother) == false) {						/* the mother is not exist*/			
+				if(checkIfExist(addMother) == false) {				/* the mother is not exist*/			
 					System.out.println("The mother's name is not in the MiniNet, please add mother's profile first!");
 					return; //back to menu
 				}
@@ -104,7 +104,7 @@ public class Driver {
 		String selectedName = new Scanner(System.in).nextLine();
 		/*selected person is in the net*/
 		if(checkIfExist(selectedName)==true) {							 
-			todoWithPerson();											//then continue with the manage menu
+			todoWithPerson();								//then continue with the manage menu
 		}else {
 			System.out.println("Cannot find the person, please add the person's profile first.");
 			menu();
@@ -119,10 +119,10 @@ public class Driver {
 		if(person instanceof Adults) {								//display status, spouse and children's name
 			System.out.println("Status: " + ((Adults)person).getStatus());
 			/*if the adult has spouse*/
-			if(Couples.hasSpouse(person)==true) {					//display spouse's name
+			if(Couples.hasSpouse(person)==true) {						//display spouse's name
 				System.out.println("Spouse: " + Couples.printSpouse(person));
 			}
-			String children = "";										//children's name
+			String children = "";								//children's name
 			for(int i=0; i<ps.size(); i++) {							
 				/*if the object is a dependent, get parents' name*/
 				if(ps.get(i) instanceof Dependents) {
@@ -132,17 +132,17 @@ public class Driver {
 					}								
 				}	
 			}
-			System.out.println("Children: " + children);				//display children's name
+			System.out.println("Children: " + children);					//display children's name
 		}
 		/*if dependents*/
 		if(person instanceof Dependents) {							//display parents' name
 			System.out.println("Father: " + ((Dependents)person).getFather().getName() 
 					+ "\nMother: " + ((Dependents)person).getMother().getName());		
 		}	
-		System.out.println("Friend List: " + Friendships.printFriendList(person));	//display friend list										
+		System.out.println("Friend List: " + Friendships.printFriendList(person));		//display friend list										
 		System.out.println("__________________________");		
 	}	
-	//be invoked after selecting a valid person and can invoke£º	
+	//be invoked after selecting a valid person and can invokeÂ£Âº	
 	public void todoWithPerson() {	
 		int todoChoice = -1;
 		int selectedperson = num;
@@ -184,9 +184,9 @@ public class Driver {
 		}while(todoChoice!=0);	
 	}
 	public void manageRelationships() {
-		int relationChoice = -1;									   //choice variable
-		String name = null;											   //object of input name, ready for check if exist in the net
-		Persons ps1 = ps.get(num);									   //store the object of the selected person
+		int relationChoice = -1;								//choice variable
+		String name = null;									//object of input name, ready for check if exist in the net
+		Persons ps1 = ps.get(num);								//store the object of the selected person
 		do {
 			try {
 				System.out.println("\n=====Manage Relationships====="
@@ -199,7 +199,7 @@ public class Driver {
 				relationChoice = new Scanner(System.in).nextInt();	
 				switch(relationChoice) {
 					case 1: 												//add friends
-						if(ps1.getAge()<=2) {								//ensure the selected person can have friends
+						if(ps1.getAge()<=2) {					//ensure the selected person can have friends
 							System.out.println("The dependent is " + ps1.getAge() + " years old.");
 							System.out.println("A person who is 2 years old or younger does not have any friends.");	
 							break;
@@ -207,7 +207,7 @@ public class Driver {
 						System.out.println("Input friend's name: ");
 						name = new Scanner(System.in).nextLine();	
 						checkIfExist(name);
-						if(checkIfExist(name)==true) {						//ensure the input person is in the net
+						if(checkIfExist(name)==true) {				//ensure the input person is in the net
 							Friendships.becomeFriends(ps1, ps.get(num));
 							break;
 						}else{
@@ -232,7 +232,7 @@ public class Driver {
 						}
 						System.out.println("Input spouse's name: ");		
 						name = new Scanner(System.in).nextLine();	
-						checkIfExist(name);									//ensure the input person is in the net
+						checkIfExist(name);							//ensure the input person is in the net
 						if(checkIfExist(name)==true && ps1 instanceof Adults) {   
 							Couples.becomeCouple(ps1, ps.get(num));
 							break;
@@ -392,17 +392,17 @@ public class Driver {
 			if(ps.get(i) instanceof Dependents) {
 				/*the dependent's father or mother is the selected person*/
 				if(((Dependents) ps.get(i)).getFather()==ps.get(num) || ((Dependents) ps.get(i)).getMother()==ps.get(num)) {
-					hasChildren = true;								//the person has children
+					hasChildren = true;						//the person has children
 				}								
 			}else {
-				hasChildren = false;								//the person does not have children
+				hasChildren = false;							//the person does not have children
 			}
 		}
 		/*the person does not has children*/
 		if(hasChildren==false) {
-			ps.remove(rmvps);									//remove from the MiniNet
-			Friendships.removeAllFriends(rmvps);				//remove all friends connection
-			Couples.removeCouple(rmvps);						//remove couple connection
+			ps.remove(rmvps);								//remove from the MiniNet
+			Friendships.removeAllFriends(rmvps);						//remove all friends connection
+			Couples.removeCouple(rmvps);							//remove couple connection
 			System.out.println("Removed!");
 		}else {			
 			System.out.println("The person has children, so that cannot remove from the MiniNet.");
